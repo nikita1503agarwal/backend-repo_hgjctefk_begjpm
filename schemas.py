@@ -38,11 +38,15 @@ class Product(BaseModel):
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
 
-# Add your own schemas here:
-# --------------------------------------------------
-
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+# Workout planner schemas
+class Workout(BaseModel):
+    """
+    Workout items for a to-do style plan
+    Collection name: "workout"
+    """
+    title: str = Field(..., description="Exercise or workout name")
+    sets: Optional[int] = Field(None, ge=1, description="Number of sets")
+    reps: Optional[int] = Field(None, ge=1, description="Repetitions per set")
+    day: Optional[str] = Field(None, description="Planned day (e.g., Mon, Tue)")
+    notes: Optional[str] = Field(None, description="Extra notes or variations")
+    completed: bool = Field(False, description="Whether this workout is completed")
